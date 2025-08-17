@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      background: rgba(0,0,0,0.3);
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .menu {
+      margin: 30px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 800px;
+    }
+    .menu button {
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: #fff;
+      color: #333;
+      transition: 0.3s;
+    }
+    .menu button:hover {
+      background: #ffcc00;
+      color: #000;
+    }
+    #authBox {
+      margin: 20px auto;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      max-width: 400px;
+    }
+    input {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      width: 80%;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎮 Game Hub</h1>
+    <p>Play games with or without account</p>
+  </header>
+
+  <!-- Authentication Box -->
+  <div id="authBox">
+    <div id="signupBox">
+      <h2>Sign Up (Optional)</h2>
+      <input type="text" id="username" placeholder="Enter username"><br>
+      <input type="password" id="password" placeholder="Enter password"><br>
+      <button onclick="signup()">Sign Up</button>
+    </div>
+    <div id="loginBox" class="hidden">
+      <h2>Welcome back!</h2>
+      <p id="welcomeUser"></p>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Menu -->
+  <div class="menu">
+    <button onclick="alert('Game 1 coming soon!')">Game 1</button>
+    <button onclick="alert('Game 2 coming soon!')">Game 2</button>
+    <button onclick="alert('Game 3 coming soon!')">Game 3</button>
+    <button onclick="alert('Game 4 coming soon!')">Game 4</button>
+    <button onclick="alert('Game 5 coming soon!')">Game 5</button>
+  </div>
+
+  <script>
+    // Check if user already signed in
+    window.onload = function() {
+      let currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        document.getElementById("signupBox").classList.add("hidden");
+        document.getElementById("loginBox").classList.remove("hidden");
+        document.getElementById("welcomeUser").innerText = "Hello, " + currentUser;
+      }
+    }
+
+    function signup() {
+      let user = document.getElementById("username").value;
+      let pass = document.getElementById("password").value;
+
+      if (user && pass) {
+        localStorage.setItem("user_" + user, pass);
+        localStorage.setItem("currentUser", user);
+        alert("Account created successfully!");
+        location.reload();
+      } else {
+        alert("Please fill all fields!");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      location.reload();
+    }
+  </script>
+</body>
+</html>
